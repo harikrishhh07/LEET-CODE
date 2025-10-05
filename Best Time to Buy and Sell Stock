@@ -9,8 +9,8 @@ public:
         int maxProfit = 0;
 
         for(int price : prices) {
-            minPrice = min(minPrice, price);          // update min price
-            maxProfit = max(maxProfit, price - minPrice); // update max profit
+            minPrice = min(minPrice, price);          
+            maxProfit = max(maxProfit, price - minPrice); 
         }
 
         return maxProfit;
