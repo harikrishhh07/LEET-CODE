@@ -1,0 +1,11 @@
+class Solution {
+public:
+    int totalMoney(int n) {
+        int weeks = n / 7;
+        int rem = n % 7;
+        int fullWeeksSum = weeks * 28 + (7 * (weeks * (weeks - 1)) / 2);
+        int start = weeks + 1;
+        int remDaysSum = rem * start + (rem * (rem - 1)) / 2;
+        return fullWeeksSum + remDaysSum;
+    }
+};
