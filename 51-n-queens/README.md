@@ -26,39 +26,72 @@
 <ul>
 	<li><code>1 &lt;= n &lt;= 9</code></li>
 </ul>
+
+Solution:
+
 class Solution {
 public:
+    // Stores all valid board configurations
     vector<vector<string>> ans;
-    vector<string> board;
-    vector<int> col, diag1, diag2;
 
+    // Current chessboard
+    vector<string> board;
+
+    // Helper arrays for fast safety checks
+    vector<int> col;    // checks column conflicts
+    vector<int> diag1;  // checks main diagonal (\)
+    vector<int> diag2;  // checks anti-diagonal (/)
+
+    // Backtracking function to place queens row by row
     void solve(int row, int n) {
+        // If all rows are filled, we found a valid solution
         if (row == n) {
             ans.push_back(board);
             return;
         }
 
+        // Try placing a queen in each column of the current row
         for (int c = 0; c < n; c++) {
+
+            // If column or diagonals are already occupied, skip
             if (col[c] || diag1[row + c] || diag2[row - c + n - 1])
                 continue;
 
+            // Place queen at (row, c)
             board[row][c] = 'Q';
-            col[c] = diag1[row + c] = diag2[row - c + n - 1] = 1;
 
+            // Mark column and diagonals as occupied
+            col[c] = 1;
+            diag1[row + c] = 1;
+            diag2[row - c + n - 1] = 1;
+
+            // Recur for the next row
             solve(row + 1, n);
 
+            // Backtrack: remove the queen
             board[row][c] = '.';
-            col[c] = diag1[row + c] = diag2[row - c + n - 1] = 0;
+            col[c] = 0;
+            diag1[row + c] = 0;
+            diag2[row - c + n - 1] = 0;
         }
     }
 
+    // Main function called by LeetCode
     vector<vector<string>> solveNQueens(int n) {
+
+        // Initialize empty board with '.'
         board = vector<string>(n, string(n, '.'));
+
+        // Initialize helper arrays with 0 (not occupied)
         col = vector<int>(n, 0);
         diag1 = vector<int>(2 * n - 1, 0);
         diag2 = vector<int>(2 * n - 1, 0);
 
+        // Start backtracking from row 0
         solve(0, n);
+
+        // Return all valid solutions
         return ans;
     }
 };
+
