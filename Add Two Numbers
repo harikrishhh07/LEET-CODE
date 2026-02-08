@@ -11,7 +11,7 @@ public:
 
             int sum = v1 + v2 + carry;
             carry = sum / 10;
-            int digit = sum % 10;#digit
+            int digit = sum % 10;
 
             l3->next = new ListNode(digit);
             l3 = l3->next;
