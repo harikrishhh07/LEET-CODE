@@ -7,7 +7,7 @@ public:
         unordered_map<char, int> freq;
 
         for (char c : s)
-        freq[c]++;
+            freq[c]++;
 
         for (char c : t) {
             freq[c]--;
